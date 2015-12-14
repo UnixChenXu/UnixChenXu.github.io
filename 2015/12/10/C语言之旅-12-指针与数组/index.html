@@ -57,7 +57,8 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/10/C语言之旅-12-指针与数组/index.html">
 <meta property="og:site_name" content="Coding">
 <meta property="og:description" content="前面留了个坑，故意不说，因为不讲指针，这个坑说不清楚，所以只好讲完指针来填这个坑了。">
-<meta property="og:updated_time" content="2015-12-10T09:58:46.000Z">
+<meta property="og:image" content="http://yoursite.com/uploads/C语言/C语言之旅-12-指针与数组-1.png">
+<meta property="og:updated_time" content="2015-12-14T09:00:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言之旅-12-指针与数组">
 <meta name="twitter:description" content="前面留了个坑，故意不说，因为不讲指针，这个坑说不清楚，所以只好讲完指针来填这个坑了。">
@@ -314,8 +315,23 @@
 
       
         <span itemprop="articleBody"><p>前面留了个坑，故意不说，因为不讲指针，这个坑说不清楚，所以只好讲完指针来填这个坑了。<br><a id="more"></a></p>
-<h2 id="数组名的意义">数组名的意义</h2><p>数组是一组相同类型的数据的集合，数组名是这组数据的首地址，它实质上是一个指针常量，它所指向是不能变的。</p>
-<h2 id="指针数组">指针数组</h2><h2 id="数组指针">数组指针</h2><h2 id="函数指针数组">函数指针数组</h2><p>好啦，这篇博文就到这了，如果对您有所帮助还请继续关注，如果对您毫无帮助，请联系博主，或者右上角红叉。</p>
+<h2 id="数组名的意义">数组名的意义</h2><p>数组是一组相同类型连续存储的数据的集合，数组名是这组数据的<strong>首地址</strong>，它实质上是一个<strong>指针常量</strong>，它的指向是不能变的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">5</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"arr:%p, &amp;arr:%p\n"</span>, arr, &amp;arr);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出为:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr:<span class="number">0018F</span>E44, &amp;arr:<span class="number">0018F</span>E44</span><br></pre></td></tr></table></figure></p>
+<p>由输出结果可以看出:arr与&amp;arr的<strong>值</strong>是相同，但是他们<strong>类型</strong>是不相同的，下面继续来个例子。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">5</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"arr:%p, &amp;arr:%p\n"</span>, arr, &amp;arr);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"arr + 1:%p, &amp;arr + 1:%p\n"</span>, arr + <span class="number">1</span>, &amp;arr + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出为:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr:<span class="number">0018F</span>828, &amp;arr:<span class="number">0018F</span>828</span><br><span class="line">arr + <span class="number">1</span>:<span class="number">0018F</span>82C, &amp;arr + <span class="number">1</span>:<span class="number">0018F</span>83C</span><br></pre></td></tr></table></figure></p>
+<p>不知读者是否还记得指针步长，由输出可以直接看出arr与&amp;arr的步长不一样。可以推断出他们的类型不一样。</p>
+<p>实际&amp;arr是一个数组指针，下面会讲到。<br>先上个图:<br><img src="/uploads/C语言/C语言之旅-12-指针与数组-1.png" alt="..."></p>
+<h2 id="指针数组">指针数组</h2><p>指针数组本质是一个<strong>数组</strong>，它里面元素是指针。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> * arr[<span class="number">5</span>] = &#123; <span class="literal">NULL</span> &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>[]的优先级高于*，所以arr先和[]结合形成数组, 然后int和*结合，最后就形成了一个数组，它元素的类型是<strong>指针</strong>。</p>
+<h2 id="数组指针">数组指针</h2><p>数组指针的本质是一个指针，而它所指向的是一个数组的地址而已。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*p)[<span class="number">5</span>] = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></p>
+<p>上面的p是一个数组指针, 它指向一个数组，这个数组有5个元素，元素的类型是int。<br>它的步长是sizeof(int[5])。</p>
+<h2 id="二维数组向函数传参">二维数组向函数传参</h2><p>有两种方式:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void test(char[][4] arr, int len)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test1(char (*arr)[4], int len)  //这一种比较正统</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="函数指针数组">函数指针数组</h2><p>函数指针数组故名思议就是一个数组嘛，只不过数组的元素是类型是函数指针而已。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (*pfuncArr[<span class="number">10</span>])(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></p>
+<p>pfuncArr的本质是一个数组，它有10个元素，元素类型是void(*)(void)。</p>
+<h2 id="变态的写法1">变态的写法1</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[<span class="number">5</span>] = &#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;;</span><br><span class="line"><span class="built_in">printf</span> (<span class="string">"3[arr]:%d\n"</span>, <span class="number">3</span>[arr]);</span><br></pre></td></tr></table></figure>
+<h2 id="变态的写法2">变态的写法2</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%c\n"</span>, <span class="number">3</span>[<span class="string">"hello world"</span>]);</span><br></pre></td></tr></table></figure>
+<p>请读者自行测试，并想想为什么?</p>
+<p>好啦，这篇博文就到这了，如果对您有所帮助还请继续关注，如果对您毫无帮助，请联系博主，或者右上角红叉。</p>
 </span>
       
     </div>
@@ -340,6 +356,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/11/C语言之旅-13-位操作/" rel="prev" title="C语言之旅-13-位操作">
+                C语言之旅-13-位操作 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -430,7 +450,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -483,7 +503,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组名的意义"><span class="nav-number">1.</span> <span class="nav-text">数组名的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针数组"><span class="nav-number">2.</span> <span class="nav-text">指针数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组指针"><span class="nav-number">3.</span> <span class="nav-text">数组指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数指针数组"><span class="nav-number">4.</span> <span class="nav-text">函数指针数组</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组名的意义"><span class="nav-number">1.</span> <span class="nav-text">数组名的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针数组"><span class="nav-number">2.</span> <span class="nav-text">指针数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组指针"><span class="nav-number">3.</span> <span class="nav-text">数组指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维数组向函数传参"><span class="nav-number">4.</span> <span class="nav-text">二维数组向函数传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数指针数组"><span class="nav-number">5.</span> <span class="nav-text">函数指针数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变态的写法1"><span class="nav-number">6.</span> <span class="nav-text">变态的写法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变态的写法2"><span class="nav-number">7.</span> <span class="nav-text">变态的写法2</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

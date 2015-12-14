@@ -51,16 +51,16 @@
 
 
 
-<meta name="description" content="上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。">
+<meta name="description" content="从开始写这个C语言回忆录到现在也有一段时间了，到这篇为止，C语言的基础语法基本已经介绍完毕了，有一些知识点确实没有讲到，因为如果讲这些东西会耗费大篇幅的文章，如果读者有兴趣可以自行了解。本章应该是最后一个章节了，也只是大致的讲解一下C语言的文件操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言之旅-11-函数指针">
-<meta property="og:url" content="http://yoursite.com/2015/12/10/C语言之旅-11-函数指针/index.html">
+<meta property="og:title" content="C语言之旅-14-文件操作">
+<meta property="og:url" content="http://yoursite.com/2015/12/14/C语言之旅-14-文件操作/index.html">
 <meta property="og:site_name" content="Coding">
-<meta property="og:description" content="上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。">
-<meta property="og:updated_time" content="2015-12-11T02:08:06.000Z">
+<meta property="og:description" content="从开始写这个C语言回忆录到现在也有一段时间了，到这篇为止，C语言的基础语法基本已经介绍完毕了，有一些知识点确实没有讲到，因为如果讲这些东西会耗费大篇幅的文章，如果读者有兴趣可以自行了解。本章应该是最后一个章节了，也只是大致的讲解一下C语言的文件操作。">
+<meta property="og:updated_time" content="2015-12-14T09:44:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C语言之旅-11-函数指针">
-<meta name="twitter:description" content="上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。">
+<meta name="twitter:title" content="C语言之旅-14-文件操作">
+<meta name="twitter:description" content="从开始写这个C语言回忆录到现在也有一段时间了，到这篇为止，C语言的基础语法基本已经介绍完毕了，有一些知识点确实没有讲到，因为如果讲这些东西会耗费大篇幅的文章，如果读者有兴趣可以自行了解。本章应该是最后一个章节了，也只是大致的讲解一下C语言的文件操作。">
 
 
 
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title> C语言之旅-11-函数指针 | Coding </title>
+  <title> C语言之旅-14-文件操作 | Coding </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@
             
             
               
-                C语言之旅-11-函数指针
+                C语言之旅-14-文件操作
               
             
           </h1>
@@ -267,8 +267,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-10T13:42:43+08:00" content="2015-12-10">
-              2015-12-10
+            <time itemprop="dateCreated" datetime="2015-12-14T16:59:39+08:00" content="2015-12-14">
+              2015-12-14
             </time>
           </span>
 
@@ -293,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/10/C语言之旅-11-函数指针/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/C语言之旅-11-函数指针/" itemprop="commentsCount"></span>
+                <a href="/2015/12/14/C语言之旅-14-文件操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/14/C语言之旅-14-文件操作/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -313,18 +313,48 @@
       
 
       
-        <span itemprop="articleBody"><p>上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。<br><a id="more"></a></p>
-<h2 id="定义函数指针">定义函数指针</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">返回值类型  (*变量名) (参数列表)</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> (*pfunc)(<span class="keyword">int</span> *, <span class="keyword">int</span> *);</span><br></pre></td></tr></table></figure>
-<p>pfunc可以指向一个函数地址，函数的类型是  返回值为void参数是int *, int *。</p>
-<h2 id="别名">别名</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFUNC)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>现在PFUNC可以用来定义一个函数指针变量啦。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PFUNC pfunc = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="赋值">赋值</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFUNC)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> (*pfunc)() = &amp;test;</span><br><span class="line"><span class="keyword">void</span> (*pfunc1)() = test;</span><br><span class="line">PFUNC pfunc2 = test;</span><br></pre></td></tr></table></figure>
-<p>在C语言中，函数名就是函数的地址，为了保持指针的一致性，取函数的地址与函数名是一样的效果。</p>
-<h2 id="调用">调用</h2><p>函数指针的调用与函数的调用时一致的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFUNC)</span><span class="params">(<span class="keyword">int</span> *, <span class="keyword">int</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">math_swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = *a;</span><br><span class="line">    *a = *b;</span><br><span class="line">    *b = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    PFUNC pfunc = math_swap;</span><br><span class="line">    <span class="keyword">int</span> var_a = <span class="number">10</span>, var_b = <span class="number">20</span>;</span><br><span class="line">    pfunc(&amp;var_a, &amp;var_b);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"var_a:%d, var_b:%d\n"</span>, var_a, var_b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="回调函数">回调函数</h2><p>函数为作为参数，而发起的函数调用过程，我们称为<strong>回调</strong>。<br>例如:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*FCMP)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CMP</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> len, FCMP cmp)</span> <span class="comment">//函数指针可以控制升序或者降序</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; len - i - <span class="number">1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cmp(arr[j], arr[j + <span class="number">1</span>]))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp     = arr[j];           <span class="comment">//arr[j] ^= arr[j + 1]   </span></span><br><span class="line">                arr[j]      = arr[j + <span class="number">1</span>];       <span class="comment">//arr[j + 1] ^= arr[j]</span></span><br><span class="line">                arr[j + <span class="number">1</span>]  = tmp;              <span class="comment">//arr[j] ^= arr[j + 1]</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[] = &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line">    qsort(arr, <span class="keyword">sizeof</span>(arr)/<span class="keyword">sizeof</span>(arr[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>比较函数可以控制是升序，还是降序，利用回调函数还可以达到其他效果。<br>额只写了个最简单的冒泡排序，以后的算法专题会专门介绍常用的排序算法。</p>
-<p>注:位操作交换2个变量的值以后再就说，先混个眼熟。</p>
+        <span itemprop="articleBody"><p>从开始写这个C语言回忆录到现在也有一段时间了，到这篇为止，C语言的基础语法基本已经介绍完毕了，有一些知识点确实没有讲到，因为如果讲这些东西会耗费大篇幅的文章，如果读者有兴趣可以自行了解。本章应该是最后一个章节了，也只是大致的讲解一下C语言的文件操作。</p>
+<a id="more"></a>
+<h2 id="文件缓冲">文件缓冲</h2><p>为什么要有缓冲区<br>原因为多种，有两个重点：</p>
+<pre><code><span class="number">1.</span>从内存中读取数据比从文件中读取数据要快得多。
+<span class="number">2.</span>对文件的读写需要用到<span class="built_in">open</span>、<span class="built_in">read</span>、<span class="built_in">write</span> 等系统底层函数，而用户进程每调
+用一次系统函数都要从用户态切换到系统态，等执行完毕后再返回用户态，这种
+切换要花费一定时间成本（对于高并发程序而言，这种状态的切换会影响到程序
+性能）。
+</code></pre><h2 id="相关结构类型以及文件操作函数">相关结构类型以及文件操作函数</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">FILE *          <span class="comment">//文件结构体指针</span></span><br><span class="line">fopen           <span class="comment">//打开文件，决定以文本还是二进制打开</span></span><br><span class="line">fclose          <span class="comment">//关闭文件</span></span><br><span class="line"><span class="built_in">fprintf</span>         <span class="comment">//格式化输出到文件</span></span><br><span class="line"><span class="built_in">fscanf</span>          <span class="comment">//格式化从文件读取</span></span><br><span class="line">fgetc           <span class="comment">//从文件读取一个字符</span></span><br><span class="line">fputc           <span class="comment">//向文件写入一个字符</span></span><br><span class="line">fgets           <span class="comment">//从文件读取一行</span></span><br><span class="line"><span class="built_in">fputs</span>           <span class="comment">//向文件写入一行</span></span><br><span class="line">rewind          <span class="comment">//将文件流指针重置到文件开始</span></span><br><span class="line">fseek           <span class="comment">//设置文件读写位置</span></span><br><span class="line">ftell           <span class="comment">//获取文件当前读写位置</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数详解">函数详解</h2><h3 id="fopen">fopen</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">const</span> <span class="keyword">char</span> *mode)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><strong>path</strong>:<br>        文件路径</p>
+<p><strong>mode</strong>:</p>
+<pre><code>r      Open <span class="type">text</span> <span class="type">file</span> <span class="keyword">for</span> reading.  The stream  <span class="keyword">is</span>  positioned  <span class="keyword">at</span>  <span class="keyword">the</span>
+       <span class="keyword">beginning</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>.
+r+     Open  <span class="keyword">for</span>  reading <span class="keyword">and</span> writing.  The stream <span class="keyword">is</span> positioned <span class="keyword">at</span> <span class="keyword">the</span>
+       <span class="keyword">beginning</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>.
+w      Truncate <span class="type">file</span> <span class="keyword">to</span> zero <span class="property">length</span> <span class="keyword">or</span> create <span class="type">text</span>  <span class="type">file</span>  <span class="keyword">for</span>  writing.
+       The stream <span class="keyword">is</span> positioned <span class="keyword">at</span> <span class="keyword">the</span> <span class="keyword">beginning</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>.
+w+     Open  <span class="keyword">for</span>  reading  <span class="keyword">and</span> writing.  The <span class="type">file</span> <span class="keyword">is</span> created <span class="keyword">if</span> <span class="keyword">it</span> <span class="keyword">does</span>
+       <span class="keyword">not</span> exist, otherwise <span class="keyword">it</span> <span class="keyword">is</span> truncated.  The stream <span class="keyword">is</span>  positioned
+       <span class="keyword">at</span> <span class="keyword">the</span> <span class="keyword">beginning</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>.
+a      Open  <span class="keyword">for</span>  appending (writing <span class="keyword">at</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="type">file</span>).  The <span class="type">file</span> <span class="keyword">is</span> cre‐
+       ated <span class="keyword">if</span> <span class="keyword">it</span> <span class="keyword">does</span> <span class="keyword">not</span> exist.  The stream <span class="keyword">is</span> positioned <span class="keyword">at</span> <span class="keyword">the</span>  <span class="keyword">end</span>
+       <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>.
+a+     Open  <span class="keyword">for</span>  reading  <span class="keyword">and</span> appending (writing <span class="keyword">at</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="type">file</span>).  The
+       <span class="type">file</span> <span class="keyword">is</span> created <span class="keyword">if</span> <span class="keyword">it</span> <span class="keyword">does</span> <span class="keyword">not</span> exist.  The initial <span class="type">file</span> position
+       <span class="keyword">for</span>  reading  <span class="keyword">is</span>  <span class="keyword">at</span>  <span class="keyword">the</span>  <span class="keyword">beginning</span>  <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>, <span class="keyword">but</span> output <span class="keyword">is</span>
+       always appended <span class="keyword">to</span> <span class="keyword">the</span> <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="type">file</span>.
+</code></pre><h3 id="fclose">fclose</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fclose</span><span class="params">(FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="fprintf">fprintf</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fprintf</span><span class="params">(FILE *stream, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="fscanf">fscanf</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fscanf</span><span class="params">(FILE *stream, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="fgetc">fgetc</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fgetc</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>注意:虽然fgetc是获取一个字符，但是当读到文件结尾时，会返回一个EOF，EOF是一个整型。这里一定要注意。</p>
+<h3 id="fputc">fputc</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> c, FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="fgets">fgets</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">fgets</span><span class="params">(<span class="keyword">char</span> *s, <span class="keyword">int</span> size, FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>注意:fgets读取一行的时候是以换行符为结束标志, 当缓冲区小于一行的字符数时, 它会读缓冲区的大小减1个字符，读取一行会从该处继续读取一行。</p>
+<h3 id="fputs">fputs</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s, FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="rewind">rewind</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rewind</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="fseek">fseek</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fseek</span><span class="params">(FILE *stream, <span class="keyword">long</span> offset, <span class="keyword">int</span> whence)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>offset:<br>    SEEK_SET:从文件首移动<br>    SEEK_CUR:从当前位置移动<br>    SEEK_END:从文件尾移动</p>
+<h3 id="ftell">ftell</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">ftell</span><span class="params">(FILE *stream)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="文件读写实例">文件读写实例</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>好啦，这篇博文就到这了，如果对您有所帮助还请继续关注，如果对您毫无帮助，请联系博主，或者右上角红叉。</p>
 </span>
       
@@ -343,17 +373,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/10/C语言之旅-10-再议指针/" rel="next" title="C语言之旅-10-再议指针">
-                <i class="fa fa-chevron-left"></i> C语言之旅-10-再议指针
+              <a href="/2015/12/11/C语言之旅-13-位操作/" rel="next" title="C语言之旅-13-位操作">
+                <i class="fa fa-chevron-left"></i> C语言之旅-13-位操作
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/10/C语言之旅-12-指针与数组/" rel="prev" title="C语言之旅-12-指针与数组">
-                C语言之旅-12-指针与数组 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -368,10 +394,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/10/C语言之旅-11-函数指针/"
-     data-title="C语言之旅-11-函数指针"
+        <div class="ds-share flat" data-thread-key="2015/12/14/C语言之旅-14-文件操作/"
+     data-title="C语言之旅-14-文件操作"
      data-content=""
-     data-url="http://yoursite.com/2015/12/10/C语言之旅-11-函数指针/">
+     data-url="http://yoursite.com/2015/12/14/C语言之旅-14-文件操作/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -399,8 +425,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/10/C语言之旅-11-函数指针/"
-           data-title="C语言之旅-11-函数指针" data-url="http://yoursite.com/2015/12/10/C语言之旅-11-函数指针/">
+      <div class="ds-thread" data-thread-key="2015/12/14/C语言之旅-14-文件操作/"
+           data-title="C语言之旅-14-文件操作" data-url="http://yoursite.com/2015/12/14/C语言之旅-14-文件操作/">
       </div>
     
   </div>
@@ -497,7 +523,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义函数指针"><span class="nav-number">1.</span> <span class="nav-text">定义函数指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#别名"><span class="nav-number">2.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值"><span class="nav-number">3.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用"><span class="nav-number">4.</span> <span class="nav-text">调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">5.</span> <span class="nav-text">回调函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件缓冲"><span class="nav-number">1.</span> <span class="nav-text">文件缓冲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关结构类型以及文件操作函数"><span class="nav-number">2.</span> <span class="nav-text">相关结构类型以及文件操作函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数详解"><span class="nav-number">3.</span> <span class="nav-text">函数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fopen"><span class="nav-number">3.1.</span> <span class="nav-text">fopen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fclose"><span class="nav-number">3.2.</span> <span class="nav-text">fclose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fprintf"><span class="nav-number">3.3.</span> <span class="nav-text">fprintf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fscanf"><span class="nav-number">3.4.</span> <span class="nav-text">fscanf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fgetc"><span class="nav-number">3.5.</span> <span class="nav-text">fgetc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fputc"><span class="nav-number">3.6.</span> <span class="nav-text">fputc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fgets"><span class="nav-number">3.7.</span> <span class="nav-text">fgets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fputs"><span class="nav-number">3.8.</span> <span class="nav-text">fputs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rewind"><span class="nav-number">3.9.</span> <span class="nav-text">rewind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fseek"><span class="nav-number">3.10.</span> <span class="nav-text">fseek</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ftell"><span class="nav-number">3.11.</span> <span class="nav-text">ftell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读写实例"><span class="nav-number">4.</span> <span class="nav-text">文件读写实例</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

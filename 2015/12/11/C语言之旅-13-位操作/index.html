@@ -51,16 +51,16 @@
 
 
 
-<meta name="description" content="上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。">
+<meta name="description" content="在计算机中最快的运算应该属位运算了，直接操作位就行了。在当今计算机中普片采用补码存储数据，补码可以很好的解决正负数的问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言之旅-11-函数指针">
-<meta property="og:url" content="http://yoursite.com/2015/12/10/C语言之旅-11-函数指针/index.html">
+<meta property="og:title" content="C语言之旅-13-位操作">
+<meta property="og:url" content="http://yoursite.com/2015/12/11/C语言之旅-13-位操作/index.html">
 <meta property="og:site_name" content="Coding">
-<meta property="og:description" content="上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。">
-<meta property="og:updated_time" content="2015-12-11T02:08:06.000Z">
+<meta property="og:description" content="在计算机中最快的运算应该属位运算了，直接操作位就行了。在当今计算机中普片采用补码存储数据，补码可以很好的解决正负数的问题。">
+<meta property="og:updated_time" content="2015-12-14T09:00:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C语言之旅-11-函数指针">
-<meta name="twitter:description" content="上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。">
+<meta name="twitter:title" content="C语言之旅-13-位操作">
+<meta name="twitter:description" content="在计算机中最快的运算应该属位运算了，直接操作位就行了。在当今计算机中普片采用补码存储数据，补码可以很好的解决正负数的问题。">
 
 
 
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title> C语言之旅-11-函数指针 | Coding </title>
+  <title> C语言之旅-13-位操作 | Coding </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@
             
             
               
-                C语言之旅-11-函数指针
+                C语言之旅-13-位操作
               
             
           </h1>
@@ -267,8 +267,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-10T13:42:43+08:00" content="2015-12-10">
-              2015-12-10
+            <time itemprop="dateCreated" datetime="2015-12-11T10:47:48+08:00" content="2015-12-11">
+              2015-12-11
             </time>
           </span>
 
@@ -293,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/10/C语言之旅-11-函数指针/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/C语言之旅-11-函数指针/" itemprop="commentsCount"></span>
+                <a href="/2015/12/11/C语言之旅-13-位操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/C语言之旅-13-位操作/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -313,18 +313,19 @@
       
 
       
-        <span itemprop="articleBody"><p>上两篇博文大体介绍了下指针，也粗略介绍了指针应用的实例。本篇博文将介绍一下函数指针。<br><a id="more"></a></p>
-<h2 id="定义函数指针">定义函数指针</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">返回值类型  (*变量名) (参数列表)</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> (*pfunc)(<span class="keyword">int</span> *, <span class="keyword">int</span> *);</span><br></pre></td></tr></table></figure>
-<p>pfunc可以指向一个函数地址，函数的类型是  返回值为void参数是int *, int *。</p>
-<h2 id="别名">别名</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFUNC)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>现在PFUNC可以用来定义一个函数指针变量啦。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PFUNC pfunc = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="赋值">赋值</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFUNC)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> (*pfunc)() = &amp;test;</span><br><span class="line"><span class="keyword">void</span> (*pfunc1)() = test;</span><br><span class="line">PFUNC pfunc2 = test;</span><br></pre></td></tr></table></figure>
-<p>在C语言中，函数名就是函数的地址，为了保持指针的一致性，取函数的地址与函数名是一样的效果。</p>
-<h2 id="调用">调用</h2><p>函数指针的调用与函数的调用时一致的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFUNC)</span><span class="params">(<span class="keyword">int</span> *, <span class="keyword">int</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">math_swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = *a;</span><br><span class="line">    *a = *b;</span><br><span class="line">    *b = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    PFUNC pfunc = math_swap;</span><br><span class="line">    <span class="keyword">int</span> var_a = <span class="number">10</span>, var_b = <span class="number">20</span>;</span><br><span class="line">    pfunc(&amp;var_a, &amp;var_b);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"var_a:%d, var_b:%d\n"</span>, var_a, var_b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="回调函数">回调函数</h2><p>函数为作为参数，而发起的函数调用过程，我们称为<strong>回调</strong>。<br>例如:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*FCMP)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CMP</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> len, FCMP cmp)</span> <span class="comment">//函数指针可以控制升序或者降序</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; len - i - <span class="number">1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cmp(arr[j], arr[j + <span class="number">1</span>]))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp     = arr[j];           <span class="comment">//arr[j] ^= arr[j + 1]   </span></span><br><span class="line">                arr[j]      = arr[j + <span class="number">1</span>];       <span class="comment">//arr[j + 1] ^= arr[j]</span></span><br><span class="line">                arr[j + <span class="number">1</span>]  = tmp;              <span class="comment">//arr[j] ^= arr[j + 1]</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[] = &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line">    qsort(arr, <span class="keyword">sizeof</span>(arr)/<span class="keyword">sizeof</span>(arr[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>比较函数可以控制是升序，还是降序，利用回调函数还可以达到其他效果。<br>额只写了个最简单的冒泡排序，以后的算法专题会专门介绍常用的排序算法。</p>
-<p>注:位操作交换2个变量的值以后再就说，先混个眼熟。</p>
+        <span itemprop="articleBody"><p>在计算机中最快的运算应该属位运算了，直接操作位就行了。<br>在当今计算机中普片采用补码存储数据，补码可以很好的解决正负数的问题。</p>
+<a id="more"></a>
+<h2 id="原则">原则</h2><p>只能对整型数据进行位运算。</p>
+<h2 id="运算符">运算符</h2><p>位左移:&lt;&lt;<br>将二进制整型数据向左移动一位，最高位丢弃，最低位补0;</p>
+<p>位右移:&gt;&gt;<br>将二进制整型数据向右移动一位，最低位丢弃，<br><em>算数右移</em> <strong>正数</strong>最高位补0，<strong>负数</strong>最高位补1。</p>
+<p>位与  : &amp;<br>如果两个数相同位上都是1，则结果的该位是1，否则为0。</p>
+<p>位或  : |<br>如果两个数相同位上有一个是1，则结果的该位是1，否则为0。</p>
+<p>位异或: ^<br>如果两个数相同位上不相同，则结果的该位是1，否则为0。</p>
+<p>位取反: ~<br>将一个数的所有位置反，即0为1，1为0。</p>
+<h2 id="原码">原码</h2><p>原码就是整数的二进制表示方法。<br>正数的原码是它二进数本身，而负数的原码是 最高位为1其他位是它的正数的二进制数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span></span><br><span class="line"> <span class="number">1</span>          <span class="number">00000001</span></span><br><span class="line">-<span class="number">1</span>          <span class="number">10000001</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="反码">反码</h2><p>反码就是原码<strong>最高位不变其他位取反</strong>获得的二进制数。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span></span><br><span class="line"> <span class="number">1</span>          <span class="number">01111110</span></span><br><span class="line">-<span class="number">1</span>          <span class="number">11111110</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="补码">补码</h2><p>正数的补码就是它的原码，<br>负数的补码是它的反码加1.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> </span><br><span class="line"> <span class="number">1</span>          <span class="number">00000001</span></span><br><span class="line">-<span class="number">1</span>          <span class="number">11111111</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="应用">应用</h2><h3 id="无第三方变量交换值">无第三方变量交换值</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *p1, <span class="keyword">int</span> *p2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    *p1 ^= *p2;</span><br><span class="line">    *p2 ^= *p1;</span><br><span class="line">    *p1 ^= *p2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>好啦，这篇博文就到这了，如果对您有所帮助还请继续关注，如果对您毫无帮助，请联系博主，或者右上角红叉。</p>
 </span>
       
@@ -343,16 +344,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/10/C语言之旅-10-再议指针/" rel="next" title="C语言之旅-10-再议指针">
-                <i class="fa fa-chevron-left"></i> C语言之旅-10-再议指针
+              <a href="/2015/12/10/C语言之旅-12-指针与数组/" rel="next" title="C语言之旅-12-指针与数组">
+                <i class="fa fa-chevron-left"></i> C语言之旅-12-指针与数组
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/10/C语言之旅-12-指针与数组/" rel="prev" title="C语言之旅-12-指针与数组">
-                C语言之旅-12-指针与数组 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/14/C语言之旅-14-文件操作/" rel="prev" title="C语言之旅-14-文件操作">
+                C语言之旅-14-文件操作 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -368,10 +369,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/10/C语言之旅-11-函数指针/"
-     data-title="C语言之旅-11-函数指针"
+        <div class="ds-share flat" data-thread-key="2015/12/11/C语言之旅-13-位操作/"
+     data-title="C语言之旅-13-位操作"
      data-content=""
-     data-url="http://yoursite.com/2015/12/10/C语言之旅-11-函数指针/">
+     data-url="http://yoursite.com/2015/12/11/C语言之旅-13-位操作/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -399,8 +400,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/10/C语言之旅-11-函数指针/"
-           data-title="C语言之旅-11-函数指针" data-url="http://yoursite.com/2015/12/10/C语言之旅-11-函数指针/">
+      <div class="ds-thread" data-thread-key="2015/12/11/C语言之旅-13-位操作/"
+           data-title="C语言之旅-13-位操作" data-url="http://yoursite.com/2015/12/11/C语言之旅-13-位操作/">
       </div>
     
   </div>
@@ -497,7 +498,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义函数指针"><span class="nav-number">1.</span> <span class="nav-text">定义函数指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#别名"><span class="nav-number">2.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值"><span class="nav-number">3.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用"><span class="nav-number">4.</span> <span class="nav-text">调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">5.</span> <span class="nav-text">回调函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原则"><span class="nav-number">1.</span> <span class="nav-text">原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">2.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原码"><span class="nav-number">3.</span> <span class="nav-text">原码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反码"><span class="nav-number">4.</span> <span class="nav-text">反码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补码"><span class="nav-number">5.</span> <span class="nav-text">补码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">6.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无第三方变量交换值"><span class="nav-number">6.1.</span> <span class="nav-text">无第三方变量交换值</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
